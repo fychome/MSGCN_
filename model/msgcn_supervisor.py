@@ -175,7 +175,6 @@ class MSGCNSupervisor:
                 x, y = self._prepare_data(x, y)
                 output = self.msgcn_model(x, y, batches_seen)
                 if batches_seen == 0:
-                    # this is a workaround to accommodate dynamically registered parameters in DCGRUCell
                     optimizer = torch.optim.Adam(self.msgcn_model.parameters(), lr=base_lr, eps=epsilon)
 
                 loss = self._compute_loss(y, output)

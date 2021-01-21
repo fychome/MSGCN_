@@ -8,7 +8,7 @@ from lib.utils import load_graph_data
 from model.msgcn_supervisor import MSGCNSupervisor
 
 
-def run_dcrnn(args):
+def run_msgcn(args):
     with open(args.config_filename) as f:
         supervisor_config = yaml.load(f)
 
@@ -30,4 +30,4 @@ if __name__ == '__main__':
                         help='Config file for pretrained model.')
     parser.add_argument('--output_filename', default='data/msgcn_predictions_metrla.npz')
     args = parser.parse_args()
-    run_dcrnn(args)
+    run_msgcn(args)
