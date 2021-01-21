@@ -7,14 +7,14 @@ The model is implemented using Python3 with dependencies specified in requiremen
 ## Data Preparation
 ### Traffic Flow datasets
 
-Download PEMS05 dataset from [https://github.com/Davidham3/STSGCN](https://github.com/Davidham3/STSGCN). Uncompress them and move them to the data folder.
+Download PEMS05 dataset from [https://github.com/Davidham3/STSGCN](https://github.com/Davidham3/STSGCN). Uncompress them and move them to the data folder. We will publish the PEMS05 dataset after review.
 
 ```
 
 # PEMS05
 python ./lib/generate_flow_data.py --output_dir=data/PEMS05 --traffic_npy_filename=data/pems5flow.npy
 
-# PEMS-BAY
+# PEMS03
 python ./lib/generate_flow_data.py --output_dir=data/PEMS03 --traffic_npy_filename=data/pems3flow.npy
 
 ```
