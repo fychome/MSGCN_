@@ -120,7 +120,7 @@ class MSGCNSupervisor:
                 x, y = self._prepare_data(x, y)
 
                 output = self.msgcn_model(x)
-                loss = self._compute_loss(y, output)
+                loss = self._compute_loss(y[-2:-1,...], output[-2:-1,...])
                 losses.append(loss.item())
 
                 y_truths.append(y.cpu())
@@ -195,7 +195,7 @@ class MSGCNSupervisor:
             lr_scheduler.step()
             self._logger.info("evaluating now!")
 
-            val_loss, _ = self.evaluate(dataset='test', batches_seen=batches_seen)
+            val_loss, _ = self.evaluate(dataset='val', batches_seen=batches_seen)
 
             end_time = time.time()
 

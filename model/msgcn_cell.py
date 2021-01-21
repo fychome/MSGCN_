@@ -191,21 +191,21 @@ class MSGGRUCell(torch.nn.Module):
         ###
 
         ###attention
-        weights_atts = self._gconv_params.get_weights((self._num_nodes, output_size, output_size))
-        weights_atts1 = self._gconv_params.get_weights((self._num_nodes, output_size, 1))
+        weights_atts = self._gconv_params.get_weights((output_size, output_size))
+        weights_atts1 = self._gconv_params.get_weights((output_size, 1))
 
-        atts = F.relu(torch.einsum('ijkl,jlb->ijkb',x_s, weights_atts))
-        atts = torch.einsum('ijkl,jlb->ijkb',atts, weights_atts1).permute(0,1,3,2)
-        # atts = F.relu(torch.matmul(x_s, weights_atts))
-        # atts = torch.matmul(atts, weights_atts1).permute(0,1,3,2)
+        # atts = F.relu(torch.einsum('ijkl,jlb->ijkb',x_s, weights_atts))
+        # atts = torch.einsum('ijkl,jlb->ijkb',atts, weights_atts1).permute(0,1,3,2)
+        atts = F.relu(torch.matmul(x_s, weights_atts))
+        atts = torch.matmul(atts, weights_atts1).permute(0,1,3,2)
         atts = F.softmax(atts, -1)
 
-        weights_atti = self._gconv_params.get_weights((self._num_nodes, output_size, output_size))
-        weights_atti1 = self._gconv_params.get_weights((self._num_nodes, output_size, 1))
-        atti = F.relu(torch.einsum('ijkl,jlb->ijkb',x_i, weights_atti))
-        atti = torch.einsum('ijkl,jlb->ijkb',atti, weights_atti1).permute(0,1,3,2)
-        # atti = F.relu(torch.matmul(x_i, weights_atti))
-        # atti = torch.matmul(atti, weights_atti1).permute(0,1,3,2)
+        weights_atti = self._gconv_params.get_weights((output_size, output_size))
+        weights_atti1 = self._gconv_params.get_weights((output_size, 1))
+        # atti = F.relu(torch.einsum('ijkl,jlb->ijkb',x_i, weights_atti))
+        # atti = torch.einsum('ijkl,jlb->ijkb',atti, weights_atti1).permute(0,1,3,2)
+        atti = F.relu(torch.matmul(x_i, weights_atti))
+        atti = torch.matmul(atti, weights_atti1).permute(0,1,3,2)
         atti = F.softmax(atti, -1)
 
         x_i = torch.matmul(atti, x_i).squeeze(2)
