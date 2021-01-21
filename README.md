@@ -14,6 +14,8 @@ Download Solar-Energy, Traffic, Electricity, Exchange-rate datasets from [https:
 # Create data directories
 mkdir -p data/{METR-LA,PEMS-BAY}
 
+python ./lib/generate_flow_data.py --output_dir=data/PEMS05 --traffic_npy_filename=data/PEMS05/pems5flownew.npy
+
 # METR-LA
 python generate_training_data.py --output_dir=data/METR-LA --traffic_df_filename=data/metr-la.h5
 
